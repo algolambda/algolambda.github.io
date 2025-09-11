@@ -19,6 +19,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <!-- EmailJS SDK -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("xeI85NfU_pVidToc6"); // Replace with your EmailJS public key
+      })();
+    </script>
     <script>
       // Set theme immediately to prevent flash
       (function () {
@@ -49,7 +59,12 @@
           >
             &nbsp;\&nbsp;&nbsp;<br />/-\
           </a>
-          <a href="#home" class="logo-text" style="text-decoration: none; outline: none;">Algo Lambda</a>
+          <a
+            href="#home"
+            class="logo-text"
+            style="text-decoration: none; outline: none"
+            >Algo Lambda</a
+          >
         </div>
         <ul class="nav-menu">
           <li class="nav-item">
@@ -150,6 +165,11 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
+          <!-- Uncomment to add reCAPTCHA
+          <div class="form-group">
+            <div class="g-recaptcha" data-sitekey="your-recaptcha-site-key"></div>
+          </div>
+          -->
           <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
       </div>

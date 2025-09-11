@@ -296,6 +296,10 @@ class ContactForm {
   constructor(modal) {
     this.form = document.getElementById("contactForm");
     this.modal = modal;
+    this.lastSubmissionTime = 0;
+    this.submissionCount = 0;
+    this.rateLimitWindow = 60000; // 1 minute
+    this.maxSubmissions = 3; // Max 3 submissions per minute
     this.init();
   }
 
@@ -308,8 +312,20 @@ class ContactForm {
   async handleSubmit(e) {
     e.preventDefault();
 
+    // Rate limiting check
+    if (!this.checkRateLimit()) {
+      this.showRateLimitError();
+      return;
+    }
+
+    // Input validation and sanitization
     const formData = new FormData(this.form);
     const data = Object.fromEntries(formData);
+
+    if (!this.validateInput(data)) {
+      this.showValidationError();
+      return;
+    }
 
     // Show loading state
     const submitBtn = this.form.querySelector('button[type="submit"]');
@@ -318,11 +334,13 @@ class ContactForm {
     submitBtn.disabled = true;
 
     try {
-      // Simulate form submission (replace with actual endpoint)
-      await this.simulateSubmission(data);
+      // Send email using EmailJS
+      await this.sendEmail(data);
+      this.updateRateLimit();
       this.showSuccess();
       this.form.reset();
     } catch (error) {
+      console.error("Email sending failed:", error);
       this.showError();
     } finally {
       submitBtn.textContent = originalText;
@@ -330,8 +348,112 @@ class ContactForm {
     }
   }
 
+  async sendEmail(data) {
+    // EmailJS configuration - you need to create a template in EmailJS dashboard
+    const SERVICE_ID = "service_xbu3fj7"; // Your EmailJS service ID
+    const TEMPLATE_ID = "template_ly8mzkn"; // Replace with your EmailJS template ID
+    const PUBLIC_KEY = "xeI85NfU_pVidToc6"; // Your public key is already in HTML
+
+    const templateParams = {
+      from_name: data.name,
+      from_email: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
+
+    return emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+  }
+
+  checkRateLimit() {
+    const now = Date.now();
+
+    // Reset counter if window has passed
+    if (now - this.lastSubmissionTime > this.rateLimitWindow) {
+      this.submissionCount = 0;
+    }
+
+    return this.submissionCount < this.maxSubmissions;
+  }
+
+  updateRateLimit() {
+    const now = Date.now();
+
+    if (now - this.lastSubmissionTime > this.rateLimitWindow) {
+      this.submissionCount = 1;
+    } else {
+      this.submissionCount++;
+    }
+
+    this.lastSubmissionTime = now;
+  }
+
+  validateInput(data) {
+    // Check for required fields
+    if (!data.name || !data.email || !data.subject || !data.message) {
+      return false;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      return false;
+    }
+
+    // Length validation
+    if (
+      data.name.length > 100 ||
+      data.subject.length > 200 ||
+      data.message.length > 2000
+    ) {
+      return false;
+    }
+
+    // Spam detection - check for suspicious patterns
+    const spamPatterns = [
+      /https?:\/\/[^\s]+/gi, // URLs
+      /\b(viagra|casino|lottery|winner|congratulations|click here|free money)\b/gi,
+      /(.)\1{10,}/, // Repeated characters
+      /[^\w\s@.-]/g, // Suspicious characters (allow basic punctuation)
+    ];
+
+    const fullText =
+      `${data.name} ${data.subject} ${data.message}`.toLowerCase();
+
+    // Check for URLs (allow 1 max)
+    const urlMatches = fullText.match(spamPatterns[0]);
+    if (urlMatches && urlMatches.length > 1) {
+      return false;
+    }
+
+    // Check for spam keywords
+    if (spamPatterns[1].test(fullText)) {
+      return false;
+    }
+
+    // Check for repeated characters
+    if (spamPatterns[2].test(fullText)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  showRateLimitError() {
+    this.showMessage(
+      "Too many submissions. Please wait a minute before trying again.",
+      "error"
+    );
+  }
+
+  showValidationError() {
+    this.showMessage(
+      "Please check your input. Make sure all fields are filled correctly and avoid suspicious content.",
+      "error"
+    );
+  }
+
   async simulateSubmission(data) {
-    // Simulate API call
+    // Keep this as fallback - remove when EmailJS is fully configured
     return new Promise((resolve) => {
       setTimeout(() => {
         console.log("Form submitted:", data);
