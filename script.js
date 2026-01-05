@@ -160,10 +160,7 @@ class ScrollAnimations {
 
   addAnimationClasses() {
     // Add scroll-animate class to elements that should animate on scroll
-    const animateElements = [
-      ".service-card",
-      ".tech-category",
-    ];
+    const animateElements = [".service-card", ".tech-category"];
 
     animateElements.forEach((selector) => {
       document.querySelectorAll(selector).forEach((el) => {
@@ -577,7 +574,7 @@ class FloatingCards {
 class TypingAnimation {
   constructor() {
     this.element = document.querySelector(".gradient-text");
-    this.text = "Intelligent Systems";
+    this.text = "From Idea to Launch";
     this.init();
   }
 
