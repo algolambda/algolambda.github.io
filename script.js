@@ -163,7 +163,6 @@ class ScrollAnimations {
     const animateElements = [
       ".service-card",
       ".tech-category",
-      ".about-content",
     ];
 
     animateElements.forEach((selector) => {

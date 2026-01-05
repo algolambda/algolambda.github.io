@@ -26,7 +26,7 @@
     ></script>
     <script type="text/javascript">
       (function () {
-        emailjs.init("xeI85NfU_pVidToc6"); // Replace with your EmailJS public key
+        emailjs.init("xeI85NfU_pVidToc6");
       })();
     </script>
     <script>
@@ -71,6 +71,9 @@
             <a href="#home" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
             <a href="#contact" class="nav-link">Contact</a>
           </li>
           <li class="nav-item">
@@ -92,18 +95,43 @@
       <div class="hero-container">
         <div class="hero-content">
           <h1 class="hero-title">
-            <span class="gradient-text">Intelligent Systems</span><br />
-            Built with Purpose
+            <span class="gradient-text">Ship Your MVP</span><br />
+            Faster
           </h1>
           <p class="hero-subtitle">
-            We build AI-driven systems that turn data into trusted products.
-            Scalable end-to-end platforms, delivered fast with real-time
-            feedback, grounded in AI integration, full-stack engineering, and
-            Lean/Agile practices.
+            I help early-stage startups turn ideas into production-ready
+            products. Full-stack development, data pipelines, and AI
+            integration—from prototype to launch.
           </p>
           <div class="hero-cta">
             <a href="#contact" class="btn btn-primary">Let's Connect</a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About</h2>
+        </div>
+        <div class="about-content">
+          <p class="about-description">
+            25+ years in software engineering, from enterprise systems at a
+            major tech company to leading data teams at high-growth media
+            startups. I've built and scaled products used by millions, led
+            engineering teams, and founded two companies along the way.
+          </p>
+          <p class="about-description">
+            My focus is data-driven products: pipelines, analytics, and AI
+            integration. Recent work includes LLM applications, RAG systems, and
+            agentic AI.
+          </p>
+          <p class="about-description">
+            I work best with founders who value speed, pragmatism, and getting
+            things shipped.
+          </p>
         </div>
       </div>
     </section>
@@ -113,24 +141,30 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Let's Connect</h2>
-          <p class="section-subtitle"></p>
         </div>
         <div class="contact-content">
           <div class="contact-info">
             <h3>Get in Touch</h3>
             <p>
-              We are always interested in discussing new opportunities and
+              I'm always interested in discussing new opportunities and
               innovative projects. Let's explore how we can work together to
-              create intelligent, impactful solutions.
+              build something great.
             </p>
             <div class="contact-methods">
               <div class="contact-method">
                 <i class="fas fa-envelope"></i>
-                <span>giulio.deluise@algolambda.com</span>
+                <a href="mailto:giulio.deluise@algolambda.com"
+                  >giulio.deluise@algolambda.com</a
+                >
               </div>
               <div class="contact-method">
                 <i class="fab fa-linkedin"></i>
-                <span>linkedin.com/in/giuliodeluise</span>
+                <a
+                  href="https://linkedin.com/in/giuliodeluise"
+                  target="_blank"
+                  rel="noopener"
+                  >LinkedIn</a
+                >
               </div>
             </div>
             <button class="btn btn-primary open-contact-modal">
@@ -145,7 +179,7 @@
     <div id="contactModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>How Can We Help?</h3>
+          <h3>How Can I Help?</h3>
           <button class="close-modal">&times;</button>
         </div>
         <form class="contact-form" id="contactForm">
@@ -165,11 +199,6 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-          <!-- Uncomment to add reCAPTCHA
-          <div class="form-group">
-            <div class="g-recaptcha" data-sitekey="your-recaptcha-site-key"></div>
-          </div>
-          -->
           <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
       </div>
@@ -181,6 +210,7 @@
         <div class="footer-content">
           <div class="footer-links">
             <a href="#home">Home</a>
+            <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </div>
         </div>
