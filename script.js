@@ -164,6 +164,41 @@ class ScrollAnimations {
   }
 }
 
+// Cursor Spotlight on Cards
+class SpotlightCards {
+  constructor() {
+    this.cards = document.querySelectorAll(".spotlight-card");
+    this.init();
+  }
+
+  init() {
+    // Decorative only: skip on touch devices and for reduced-motion users
+    const finePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (!this.cards.length || !finePointer || reducedMotion) return;
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    this.cards.forEach((card) => {
+      let frame = null;
+      card.addEventListener("pointermove", (e) => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = null;
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+          card.style.setProperty("--my", `${e.clientY - rect.top}px`);
+        });
+      });
+    });
+  }
+}
+
 // Navbar Scroll Effect
 class NavbarScroll {
   constructor() {
@@ -567,6 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
   new MobileNav();
   new SmoothScroll();
   new ScrollAnimations();
+  new SpotlightCards();
   new NavbarScroll();
 
   // Initialize modal and form together
@@ -574,12 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
   new ContactForm(modal);
 
   new PerformanceOptimizer();
-
-  // Add fade-in animation to hero section
-  const hero = document.querySelector(".hero");
-  if (hero) {
-    hero.classList.add("fade-in-up");
-  }
+  // Hero entrance animation is pure CSS (.hero-line / riseIn in styles.css)
 });
 
 // Add keyboard navigation support
