@@ -258,13 +258,9 @@ body {
   pointer-events: none;
 }
 
-.hero-grid {
+.hero-content {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.7fr);
-  gap: 5rem;
-  align-items: center;
-  width: 100%;
+  max-width: 44rem;
 }
 
 .hero-eyebrow {
@@ -282,9 +278,9 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5.6vw, 4.375rem);
+  font-size: clamp(2.375rem, 5vw, 3.75rem);
   font-weight: 800;
-  line-height: 1.06;
+  line-height: 1.08;
   letter-spacing: -0.035em;
   margin-bottom: 1.75rem;
 }
@@ -301,39 +297,6 @@ body {
   gap: 1rem;
   flex-wrap: wrap;
   align-items: center;
-}
-
-/* Hero facts rail */
-.hero-facts {
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid var(--border-color);
-  padding-left: 2.5rem;
-}
-
-.fact {
-  padding: 1.5rem 0;
-}
-
-.fact + .fact {
-  border-top: 1px solid var(--border-color);
-}
-
-.fact-value {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.fact-label {
-  display: block;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  max-width: 15rem;
 }
 
 /* Buttons */
@@ -368,17 +331,6 @@ body {
 .btn-lg {
   padding: 1rem 2.25rem;
   font-size: 1.0625rem;
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-.btn-ghost:hover {
-  border-color: var(--border-strong);
-  background: var(--bg-secondary);
 }
 
 /* Section header */
@@ -530,6 +482,32 @@ body {
 
 .step p {
   font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+/* FAQ Section */
+.faq {
+  padding: 7rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 4rem;
+  max-width: 58rem;
+}
+
+.faq-item h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  font-size: 0.9875rem;
   color: var(--text-secondary);
 }
 
@@ -770,37 +748,9 @@ body {
 
 /* Responsive Design */
 @media (max-width: 960px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
   .hero {
     min-height: 0;
     padding: 8rem 0 4rem;
-  }
-
-  .hero-facts {
-    flex-direction: row;
-    border-left: none;
-    border-top: 1px solid var(--border-color);
-    padding: 1.5rem 0 0;
-    gap: 2rem;
-  }
-
-  .fact {
-    padding: 0;
-    flex: 1;
-  }
-
-  .fact + .fact {
-    border-top: none;
-    border-left: 1px solid var(--border-color);
-    padding-left: 2rem;
-  }
-
-  .fact-value {
-    font-size: 1.5rem;
   }
 
   .services-grid {
@@ -845,8 +795,14 @@ body {
   }
 
   .services,
-  .about {
+  .about,
+  .faq {
     padding: 4.5rem 0;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .contact {
@@ -886,18 +842,6 @@ body {
 
   .hero-cta .btn {
     width: 100%;
-  }
-
-  .hero-facts {
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .fact + .fact {
-    border-left: none;
-    border-top: 1px solid var(--border-color);
-    padding-left: 0;
-    padding-top: 1.25rem;
   }
 
   .service-card {
