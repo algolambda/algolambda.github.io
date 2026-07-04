@@ -24,24 +24,11 @@ class ThemeManager {
     document.documentElement.setAttribute("data-theme", theme);
     this.currentTheme = theme;
     localStorage.setItem("theme", theme);
-    this.updateThemeIcon();
   }
 
   toggleTheme() {
     const newTheme = this.currentTheme === "light" ? "dark" : "light";
     this.setTheme(newTheme);
-  }
-
-  updateThemeIcon() {
-    const themeToggle = document.getElementById("theme-toggle");
-    const icon = themeToggle?.querySelector("i");
-    if (icon) {
-      if (this.currentTheme === "dark") {
-        icon.className = "fas fa-sun";
-      } else {
-        icon.className = "fas fa-moon";
-      }
-    }
   }
 
   bindEvents() {
@@ -155,21 +142,6 @@ class ScrollAnimations {
 
   init() {
     this.setupObserver();
-    this.addAnimationClasses();
-  }
-
-  addAnimationClasses() {
-    // Add scroll-animate class to elements that should animate on scroll
-    const animateElements = [".service-card", ".tech-category"];
-
-    animateElements.forEach((selector) => {
-      document.querySelectorAll(selector).forEach((el) => {
-        el.classList.add("scroll-animate");
-      });
-    });
-
-    // Update elements list
-    this.elements = document.querySelectorAll(".scroll-animate");
   }
 
   setupObserver() {
@@ -204,26 +176,15 @@ class NavbarScroll {
   }
 
   updateNavbar() {
-    if (window.scrollY > 100) {
-      this.navbar.style.background = "rgba(255, 255, 255, 0.98)";
-      this.navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
-    } else {
-      this.navbar.style.background = "rgba(255, 255, 255, 0.95)";
-      this.navbar.style.boxShadow = "none";
-    }
-
-    // Update for dark theme
-    if (document.documentElement.getAttribute("data-theme") === "dark") {
-      if (window.scrollY > 100) {
-        this.navbar.style.background = "rgba(17, 24, 39, 0.98)";
-      } else {
-        this.navbar.style.background = "rgba(17, 24, 39, 0.95)";
-      }
-    }
+    // Styling lives in CSS (.navbar.scrolled) so both themes work automatically
+    this.navbar.classList.toggle("scrolled", window.scrollY > 20);
   }
 
   bindEvents() {
-    window.addEventListener("scroll", () => this.updateNavbar());
+    window.addEventListener("scroll", () => this.updateNavbar(), {
+      passive: true,
+    });
+    this.updateNavbar();
   }
 }
 
@@ -231,14 +192,14 @@ class NavbarScroll {
 class ContactModal {
   constructor() {
     this.modal = document.getElementById("contactModal");
-    this.openBtn = document.querySelector(".open-contact-modal");
+    this.openBtns = document.querySelectorAll(".open-contact-modal");
     this.closeBtn = document.querySelector(".close-modal");
     this.form = document.getElementById("contactForm");
     this.init();
   }
 
   init() {
-    if (this.modal && this.openBtn && this.closeBtn && this.form) {
+    if (this.modal && this.openBtns.length && this.closeBtn && this.form) {
       this.bindModalEvents();
     }
   }
@@ -258,12 +219,12 @@ class ContactModal {
   }
 
   bindModalEvents() {
-    if (this.openBtn) {
-      this.openBtn.addEventListener("click", (e) => {
+    this.openBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
         this.open();
       });
-    }
+    });
 
     if (this.closeBtn) {
       this.closeBtn.addEventListener("click", () => this.close());
@@ -544,60 +505,6 @@ class ContactForm {
   }
 }
 
-// Floating Cards Animation
-class FloatingCards {
-  constructor() {
-    this.cards = document.querySelectorAll(".floating-card");
-    this.init();
-  }
-
-  init() {
-    this.addMouseInteraction();
-  }
-
-  addMouseInteraction() {
-    this.cards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        card.style.animationPlayState = "paused";
-        card.style.transform = "translateY(-10px) scale(1.05)";
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.style.animationPlayState = "running";
-        card.style.transform = "";
-      });
-    });
-  }
-}
-
-// Typing Animation for Hero Title
-class TypingAnimation {
-  constructor() {
-    this.element = document.querySelector(".gradient-text");
-    this.text = "From Idea to Launch";
-    this.init();
-  }
-
-  init() {
-    if (this.element) {
-      this.startTyping();
-    }
-  }
-
-  async startTyping() {
-    this.element.textContent = "";
-
-    for (let i = 0; i <= this.text.length; i++) {
-      this.element.textContent = this.text.slice(0, i);
-      await this.delay(100);
-    }
-  }
-
-  delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-}
-
 // Performance Optimization
 class PerformanceOptimizer {
   constructor() {
@@ -666,43 +573,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const modal = new ContactModal();
   new ContactForm(modal);
 
-  new FloatingCards();
-  new TypingAnimation();
   new PerformanceOptimizer();
 
   // Add fade-in animation to hero section
   const hero = document.querySelector(".hero");
   if (hero) {
     hero.classList.add("fade-in-up");
-  }
-
-  // Preload critical resources
-  const criticalResources = [
-    "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap",
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-  ];
-
-  criticalResources.forEach((url) => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "style";
-    link.href = url;
-    document.head.appendChild(link);
-  });
-});
-
-// Handle page visibility changes for performance
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    // Pause animations when page is not visible
-    document.querySelectorAll(".floating-card").forEach((card) => {
-      card.style.animationPlayState = "paused";
-    });
-  } else {
-    // Resume animations when page becomes visible
-    document.querySelectorAll(".floating-card").forEach((card) => {
-      card.style.animationPlayState = "running";
-    });
   }
 });
 
