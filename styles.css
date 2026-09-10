@@ -167,13 +167,11 @@ body::after {
   text-decoration: none;
 }
 
-.brand-mark {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.625rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--accent);
-  white-space: pre;
+.brand-logo {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
 }
 
 .logo-text {
@@ -1013,10 +1011,31 @@ body::after {
   gap: 1rem;
 }
 
-.footer-brand {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 1.125rem;
-  color: var(--accent);
+.footer-logo {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+
+/* Theme-specific logo files: the bright one (transparent ground) on the light
+   theme, the glowing one on dark. The dark file's ground matches --bg-primary;
+   lighten hides it against the translucent scrolled navbar. */
+.logo-light {
+  display: block;
+}
+
+.logo-dark {
+  display: none;
+  mix-blend-mode: lighten;
+}
+
+[data-theme="dark"] .logo-dark {
+  display: block;
+}
+
+[data-theme="dark"] .logo-light {
+  display: none;
 }
 
 .footer-text {
