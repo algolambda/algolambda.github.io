@@ -403,8 +403,12 @@ body::after {
 .hero-subtitle {
   font-size: 1.25rem;
   color: var(--text-secondary);
-  max-width: 34rem;
+  max-width: 36rem;
   margin-bottom: 2.5rem;
+}
+
+.hero-subtitle p + p {
+  margin-top: 1rem;
 }
 
 .hero-cta {
@@ -467,13 +471,17 @@ body::after {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
 }
 
 .service-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: 2rem 4rem;
+  align-items: start;
   background: var(--bg-primary);
-  padding: 2.25rem 2rem;
+  padding: 2.5rem;
   border-radius: 14px;
   border: 1px solid var(--border-color);
   transition: border-color 0.2s ease, transform 0.2s ease,
@@ -540,23 +548,34 @@ body::after {
 }
 
 .service-title {
-  font-size: 1.3125rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: -0.015em;
-  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   color: var(--text-primary);
 }
 
-.service-description {
-  color: var(--text-secondary);
-  font-size: 0.9875rem;
+.service-body {
   margin-bottom: 1.5rem;
+  max-width: 38rem;
+}
+
+.service-body p {
+  color: var(--text-secondary);
+  font-size: 1.0625rem;
+}
+
+.service-body p + p {
+  margin-top: 0.875rem;
 }
 
 .service-features {
   list-style: none;
   border-top: 1px solid var(--border-color);
   padding-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem 2rem;
 }
 
 .service-features li {
@@ -598,6 +617,11 @@ body::after {
 
 .about-description:last-child {
   margin-bottom: 0;
+}
+
+.about-description.about-emphasis {
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .about-rail {
@@ -649,6 +673,67 @@ body::after {
   color: var(--text-secondary);
 }
 
+.step p + p {
+  margin-top: 0.5rem;
+}
+
+/* When to call me */
+.when {
+  padding: 7rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.when-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 5rem;
+  align-items: start;
+}
+
+.when-header {
+  position: sticky;
+  top: 6rem;
+}
+
+.when-header .section-title {
+  margin-bottom: 1.25rem;
+}
+
+.when-lede {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+}
+
+.when-list {
+  list-style: none;
+  border-top: 1px solid var(--border-color);
+}
+
+.when-item {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.when-index {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.8125rem;
+  color: var(--accent);
+}
+
+.when-item p {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  transition: color 0.15s ease;
+}
+
+.when-item:hover p {
+  color: var(--text-primary);
+}
+
 /* FAQ Section */
 .faq {
   padding: 7rem 0;
@@ -675,6 +760,10 @@ body::after {
   color: var(--text-secondary);
 }
 
+.faq-item p + p {
+  margin-top: 0.5rem;
+}
+
 /* Contact Section */
 .contact {
   padding: 8rem 0;
@@ -697,12 +786,20 @@ body::after {
   pointer-events: none;
 }
 
+.contact-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 4rem 5rem;
+  align-items: end;
+}
+
 .contact-title {
   font-size: clamp(2.25rem, 5vw, 3.75rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .contact-title em {
@@ -713,15 +810,33 @@ body::after {
 .contact-lede {
   font-size: 1.1875rem;
   color: var(--text-secondary);
-  max-width: 34rem;
-  margin-bottom: 2.75rem;
+  max-width: 32rem;
+}
+
+.contact-lede p + p {
+  margin-top: 0.75rem;
+}
+
+.contact-ask {
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.contact-promise {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  max-width: 26rem;
+  margin-bottom: 2.25rem;
 }
 
 .contact-actions {
   display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.75rem;
 }
 
 .contact-methods {
@@ -909,6 +1024,14 @@ body::after {
   font-size: 0.9375rem;
 }
 
+.footer-role {
+  display: block;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  margin-top: 0.25rem;
+}
+
 .footer-links {
   display: flex;
   gap: 1.75rem;
@@ -944,6 +1067,22 @@ body::after {
   .about-rail {
     position: static;
   }
+
+  .service-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .when-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .when-header {
+    position: static;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -975,6 +1114,7 @@ body::after {
 
   .services,
   .about,
+  .when,
   .faq {
     padding: 4.5rem 0;
   }
@@ -1009,6 +1149,16 @@ body::after {
     text-align: center;
   }
 
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .footer-links a {
+    white-space: nowrap;
+  }
+
   .container {
     padding: 0 1.25rem;
   }
@@ -1025,6 +1175,10 @@ body::after {
 
   .service-card {
     padding: 1.75rem 1.5rem;
+  }
+
+  .service-features {
+    grid-template-columns: 1fr;
   }
 
   .contact-methods {
@@ -1089,6 +1243,14 @@ body::after {
 
 .faq-grid .scroll-animate:nth-child(6) {
   transition-delay: 0.3s;
+}
+
+.faq-grid .scroll-animate:nth-child(7) {
+  transition-delay: 0.36s;
+}
+
+.faq-grid .scroll-animate:nth-child(8) {
+  transition-delay: 0.42s;
 }
 
 @media (prefers-reduced-motion: reduce) {
