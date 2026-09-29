@@ -119,6 +119,7 @@ body::after {
   letter-spacing: -0.025em;
   line-height: 1.15;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .section-lede {
@@ -299,7 +300,7 @@ body::after {
 
 .hero-content {
   position: relative;
-  max-width: 48rem;
+  max-width: 54rem;
 }
 
 .hero-eyebrow {
@@ -697,9 +698,18 @@ body::after {
   margin-bottom: 1.25rem;
 }
 
-.when-lede {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
+.when-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.when-group-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
 }
 
 .when-list {
@@ -793,11 +803,12 @@ body::after {
 }
 
 .contact-title {
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 2rem;
+  text-wrap: balance;
 }
 
 .contact-title em {
